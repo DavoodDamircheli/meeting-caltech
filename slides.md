@@ -161,45 +161,6 @@ $$
 
 ---
 
-## Velocity-Verlet
-
-For $\xx \in D_k$ and $k = 1, 2, \dots, N$
-
-$$
-\begin{cases}
-\uu(\xx) \leftarrow \uu(\xx) + \Delta t \dot{\uu}(\xx) + \frac{\Delta t^2}{2} \ddot{\uu}(\xx)
-\\   
-\ddot{\uu}^{\text{old}} := \ddot{\uu}(\xx)
-\\
-\ddot{\uu}(\xx) \leftarrow \frac{1}{\rho} \left( \ff^{\text{peri}} (\xx) +\ff^{\text{self}} (\xx) +\ff^{\text{nbr}} (\xx) +\ff^{\text{wall}} (\xx) + \Bb(\xx, t) \right)
-\\
-\dot{\uu}(\xx)  \leftarrow \dot{\uu}(\xx) + \frac{\Delta t}{2}  \left(\ddot{\uu}^{\text{old}} + \ddot{\uu}(\xx)  \right)
-\end{cases}
-$$
-
-- Parallelization with MPI in C++
-- Neighborhood search is costly
-
----
-
-
-
-# Parallelization with MPI in C++
-
-- Nonlocal models are expensive compared to MD simulations: O(nm) computation for each each node (n = #nodes, m = #neighbors)
-- Time complexity is typically higher than space complexity
-
-## Parallelization Strategy
-
-- For N particle simulation, we compute at most (N choose 2) contacts
-- Each contact computation is distributed to a node
-
-## Possible improvements
-
-- Balancing computational loads across nodes
-- Fast particle contact detection (difficult when fracture is enabled)
-
----
 
 
 ### Thank you
